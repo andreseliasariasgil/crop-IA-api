@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>IA Recomendación de Cultivos</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #4CAF50, #2ecc71);
+            text-align: center;
+            padding: 30px;
+            color: white;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            padding: 25px;
+            border-radius: 15px;
+            width: 320px;
+            margin: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: scale(1.03);
+        }
+
+        input, select {
+            width: 100%;
+            margin: 6px 0;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2ecc71;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #219150, #27ae60);
+        }
+
+        #resultado {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #27ae60;
+        }
+
+        .icon {
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🌱 IA Recomendación de Cultivo</h1>
+
+<div class="container">
+
+    <div class="icon">🌿</div>
+
+    <input type="number" id="N" placeholder="N (Nitrógeno)">
+    <input type="number" id="P" placeholder="P (Fósforo)">
+    <input type="number" id="K" placeholder="K (Potasio)">
+    <input type="number" id="temperature" placeholder="Temperatura">
+    <input type="number" id="humidity" placeholder="Humedad">
+    <input type="number" id="ph" placeholder="pH">
+    <input type="number" id="rainfall" placeholder="Lluvia">
+
+    <select id="modelo">
+        <option value="rf">🌳 RandomForest</option>
+        <option value="svm">🤖 SVM</option>
+    </select>
+
+    <button onclick="predecir()">✨ Predecir</button>
+
+    <div id="resultado"></div>
+
+</div>
+
+<script>
+async function predecir() {
+    const data = {
+        N: parseFloat(document.getElementById("N").value),
+        P: parseFloat(document.getElementById("P").value),
+        K: parseFloat(document.getElementById("K").value),
+        temperature: parseFloat(document.getElementById("temperature").value),
+        humidity: parseFloat(document.getElementById("humidity").value),
+        ph: parseFloat(document.getElementById("ph").value),
+        rainfall: parseFloat(document.getElementById("rainfall").value)
+    };
+
+    const modelo = document.getElementById("modelo").value;
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/predict/${modelo}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        document.getElementById("resultado").innerHTML =
+            "🌾 <b>Cultivo recomendado:</b> " + result.prediction;
+
+    } catch (error) {
+        document.getElementById("resultado").innerHTML =
+            "❌ Error al conectar con el servidor";
+    }
+}
+</script>
+
+</body>
+</html>

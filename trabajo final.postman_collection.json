@@ -1,0 +1,75 @@
+{
+  "info": {
+    "_postman_id": "2addd5b3-1924-434f-81cf-cf5257e7b626",
+    "name": "trabajo final",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53563934",
+    "_collection_link": "https://go.postman.co/collection/53563934-2addd5b3-1924-434f-81cf-cf5257e7b626?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "RandomForest",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"N\": 90,\r\n  \"P\": 42,\r\n  \"K\": 43,\r\n  \"temperature\": 20.87,\r\n  \"humidity\": 82.0,\r\n  \"ph\": 6.5,\r\n  \"rainfall\": 202.93\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/predict/rf",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "predict",
+            "rf"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "SVM",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"N\": 90,\r\n  \"P\": 42,\r\n  \"K\": 43,\r\n  \"temperature\": 20,\r\n  \"humidity\": 80,\r\n  \"ph\": 6.5,\r\n  \"rainfall\": 200\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/predict/svm",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "predict",
+            "svm"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
