@@ -2,17 +2,20 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers.crop_router import router
 
-# Crear app
+# Crear aplicación FastAPI
 app = FastAPI(
     title="IA Recomendación de Cultivos",
     description="API para predicción usando RandomForest y SVM",
-    version="1.0"
+    version="1.0",
+    docs_url="/docs",          # Swagger
+    redoc_url="/redoc",        # Documentación alternativa
+    openapi_url="/openapi.json"  # 🔥 importante para Render
 )
 
-# 🔥 CONFIGURACIÓN CORS (MUY IMPORTANTE)
+# Configuración CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # permite frontend
+    allow_origins=["*"],   # Permitir frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -21,7 +24,14 @@ app.add_middleware(
 # Incluir rutas
 app.include_router(router)
 
-# Ruta de prueba
+# Ruta principal
 @app.get("/")
 def home():
-    return {"message": "API de cultivos funcionando 🚀"}
+    return {
+        "message": "API de cultivos funcionando 🚀",
+        "docs": "/docs",
+        "endpoints": [
+            "/predict/rf",
+            "/predict/svm"
+        ]
+    }
