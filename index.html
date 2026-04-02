@@ -118,7 +118,7 @@ async function predecir() {
     const modelo = document.getElementById("modelo").value;
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/predict/${modelo}`, {
+        const response = await fetch(`https://crop-ia-backend.onrender.com/predict/${modelo}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
